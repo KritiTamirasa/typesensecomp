@@ -81,6 +81,8 @@ async def analyze_fridge(image: UploadFile = File(...)) -> AnalyzeFridgeResponse
 
 @app.post("/search-recipes", response_model=SearchRecipesResponse)
 def search_recipes_endpoint(req: SearchRecipesRequest) -> SearchRecipesResponse:
+    if not [i for i in req.ingredients if i and i.strip()]:
+        raise HTTPException(400, "ingredients list is required and must not be empty")
     try:
         return search_recipes(req)
     except Exception as exc:  # noqa: BLE001

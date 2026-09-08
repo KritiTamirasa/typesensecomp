@@ -5,6 +5,18 @@ ingredients, and store inventories all use the same canonical spellings.
 """
 from __future__ import annotations
 
+import re
+
+# Leading quantity, e.g. "2 ", "1/2 ", "1-2 ", "1½ ".
+_LEADING_QTY_RE = re.compile(r"^[\d.\/½¼¾⅓⅔\s-]*\d[\d.\/½¼¾⅓⅔\s-]*\s+")
+
+_UNIT_WORDS = {
+    "cup", "cups", "tbsp", "tablespoon", "tablespoons", "tsp", "teaspoon", "teaspoons",
+    "oz", "ounce", "ounces", "lb", "lbs", "pound", "pounds", "g", "gram", "grams",
+    "kg", "ml", "l", "liter", "liters", "litre", "litres", "clove", "cloves", "can",
+    "cans", "pinch", "large", "small", "medium", "whole", "piece", "pieces",
+}
+
 # Canonical name -> list of alternative spellings.
 # The canonical name is what we store/compare on; alternatives map to it.
 SYNONYM_GROUPS: dict[str, list[str]] = {
@@ -45,8 +57,14 @@ def _singularize(word: str) -> str:
 
 
 def normalize_ingredient(raw: str) -> str:
-    """Lowercase, trim, strip trivial descriptors, singularize, apply synonyms."""
+    """Lowercase, trim, strip quantity/unit/descriptor noise, singularize, apply synonyms."""
     text = raw.strip().lower()
+    # Drop a leading quantity ("2 ", "1/2 ", "1-2 ") and, if present right
+    # after it, a unit word ("tbsp", "large", "cloves", ...).
+    text = _LEADING_QTY_RE.sub("", text)
+    tokens = text.split()
+    if tokens and tokens[0] in _UNIT_WORDS:
+        text = " ".join(tokens[1:])
     # Drop common noise words / parenthetical notes.
     for noise in ("fresh ", "dried ", "ground ", "chopped ", "sliced ", "raw ", "organic "):
         if text.startswith(noise):

@@ -11,6 +11,7 @@ from ..models import (
     SearchRecipesResponse,
 )
 from ..typesense_client import RECIPES_COLLECTION, get_client
+from .ranking import compute_overlap, rank_key
 
 _TIME_PATTERNS = [
     re.compile(r"under\s+(\d+)"),
@@ -80,7 +81,7 @@ def search_recipes(req: SearchRecipesRequest) -> SearchRecipesResponse:
     search_params = {
         "q": q,
         "query_by": query_by,
-        "per_page": 250,
+        "per_page": 100,
         "num_typos": 2,
         "facet_by": "cuisine,tags,cooking_time",
         "max_facet_values": 20,
@@ -92,13 +93,11 @@ def search_recipes(req: SearchRecipesRequest) -> SearchRecipesResponse:
 
     raw = client.collections[RECIPES_COLLECTION].documents.search(search_params)
 
-    cards: list[tuple[float, int, float, RecipeCard]] = []
+    cards: list[tuple[tuple, RecipeCard]] = []
     for hit in raw.get("hits", []):
         doc = hit["document"]
         recipe_ings = normalize_list(doc.get("ingredients", []))
-        owned_here = [i for i in recipe_ings if i in owned_set]
-        missing_here = [i for i in recipe_ings if i not in owned_set]
-        match_score = len(owned_here) / len(recipe_ings) if recipe_ings else 0.0
+        overlap = compute_overlap(recipe_ings, owned_set)
         text_match = float(hit.get("text_match", 0))
 
         card = RecipeCard(
@@ -110,18 +109,24 @@ def search_recipes(req: SearchRecipesRequest) -> SearchRecipesResponse:
             instructions=doc.get("instructions", ""),
             cooking_time=int(doc.get("cooking_time", 0)),
             tags=doc.get("tags", []),
-            owned_ingredients=owned_here,
-            missing_ingredients=missing_here,
-            match_score=round(match_score, 3),
-            available_percentage=round(match_score * 100),
+            owned_ingredients=overlap["matched"],
+            missing_ingredients=overlap["missing"],
+            match_score=overlap["match_score"],
+            available_percentage=overlap["match_percentage"],
+            matched_count=overlap["matched_count"],
+            missing_count=overlap["missing_count"],
+            total_ingredients=overlap["total"],
         )
-        cards.append((match_score, -len(missing_here), text_match, card))
+        key = rank_key(
+            overlap["matched_count"], overlap["missing_count"], overlap["match_percentage"], text_match
+        )
+        cards.append((key, card))
 
     if owned_set:
-        cards.sort(key=lambda t: (t[0], t[1], t[2]), reverse=True)
+        cards.sort(key=lambda t: t[0], reverse=True)
     # else: keep Typesense relevance order
 
-    trimmed = [c[3] for c in cards][: max(1, req.per_page)]
+    trimmed = [c[1] for c in cards][: max(1, req.per_page)]
     return SearchRecipesResponse(
         count=len(trimmed),
         normalized_ingredients=owned,
