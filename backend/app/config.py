@@ -33,7 +33,7 @@ class Settings:
     openai_model: str = os.getenv("OPENAI_VISION_MODEL", "gpt-4o-mini")
 
     gemini_api_key: str | None = os.getenv("GEMINI_API_KEY")
-    gemini_model: str = os.getenv("GEMINI_VISION_MODEL", "gemini-1.5-flash")
+    gemini_model: str = os.getenv("GEMINI_VISION_MODEL", "gemini-flash-latest")
 
     # --- Geo fallback (used when the browser denies geolocation) ---
     # West Lafayette, IN (Purdue campus area).
