@@ -42,6 +42,27 @@ app.add_middleware(
 
 _ALLOWED_IMAGE_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
 
+# Leading bytes → canonical mime, used when the browser sends a missing or
+# generic content-type (e.g. application/octet-stream on drag-and-drop).
+_MAGIC_PREFIXES: list[tuple[bytes, str]] = [
+    (b"\xff\xd8\xff", "image/jpeg"),
+    (b"\x89PNG\r\n\x1a\n", "image/png"),
+    (b"GIF87a", "image/gif"),
+    (b"GIF89a", "image/gif"),
+]
+
+
+def _sniff_mime(data: bytes, declared: str) -> str | None:
+    """Return an allowed mime for this payload, or None if unsupported."""
+    if declared in _ALLOWED_IMAGE_TYPES:
+        return declared
+    for prefix, mime in _MAGIC_PREFIXES:
+        if data.startswith(prefix):
+            return mime
+    if data[8:12] == b"WEBP":
+        return "image/webp"
+    return None
+
 
 @app.get("/health")
 def health() -> dict:
@@ -67,13 +88,19 @@ def health() -> dict:
 
 @app.post("/analyze-fridge", response_model=AnalyzeFridgeResponse)
 async def analyze_fridge(image: UploadFile = File(...)) -> AnalyzeFridgeResponse:
-    mime = image.content_type or "image/jpeg"
-    if mime not in _ALLOWED_IMAGE_TYPES:
-        raise HTTPException(415, f"unsupported image type: {mime}")
+    declared = image.content_type or ""
 
     data = await image.read()
     if not data:
         raise HTTPException(400, "empty upload")
+
+    mime = _sniff_mime(data, declared)
+    if mime is None:
+        raise HTTPException(
+            415,
+            f"unsupported image type: {declared or 'unknown'}. "
+            "Use JPEG, PNG, WebP or GIF (iPhone HEIC is not supported).",
+        )
 
     provider = get_vision_provider()
     provider_name = provider.name

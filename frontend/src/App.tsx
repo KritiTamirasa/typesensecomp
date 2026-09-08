@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import UploadArea from "./components/UploadArea";
 import IngredientChips from "./components/IngredientChips";
 import RecipeCardView from "./components/RecipeCard";
@@ -14,10 +14,15 @@ import type {
 
 type Stage = "upload" | "results" | "detail";
 
+// Formats a browser can both preview in <img> and the backend accepts.
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
 export default function App() {
   const [stage, setStage] = useState<Stage>("upload");
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const previewUrlRef = useRef<string | null>(null);
+  previewUrlRef.current = previewUrl;
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [provider, setProvider] = useState<string | null>(null);
   const [query, setQuery] = useState("");
@@ -42,15 +47,27 @@ export default function App() {
 
   useEffect(() => {
     return () => {
-      if (previewUrl) URL.revokeObjectURL(previewUrl);
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
     };
-  }, [previewUrl]);
+  }, []);
 
   const handleFile = useCallback(async (file: File) => {
     setError(null);
+
+    if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+      setError(
+        `Unsupported image format${file.type ? ` (${file.type})` : ""}. ` +
+          "Please use a JPEG, PNG, WebP or GIF — iPhone HEIC photos aren't supported. " +
+          "On iPhone: Settings → Camera → Formats → \"Most Compatible\", or share the photo as a screenshot.",
+      );
+      return;
+    }
+
     setAnalyzing(true);
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
-    setPreviewUrl(URL.createObjectURL(file));
+    setPreviewUrl((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return URL.createObjectURL(file);
+    });
     try {
       const res = await analyzeFridge(file);
       setIngredients(res.ingredients);
@@ -60,8 +77,7 @@ export default function App() {
     } finally {
       setAnalyzing(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [previewUrl]);
+  }, []);
 
   async function runSearch(willing: boolean = willingToBuy) {
     setError(null);

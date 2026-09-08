@@ -12,7 +12,9 @@ export default function UploadArea({ onSelect, previewUrl, loading }: Props) {
 
   function pick(files: FileList | null) {
     const file = files?.[0];
-    if (file && file.type.startsWith("image/")) onSelect(file);
+    // Pass any picked file through; App validates the format and shows a
+    // helpful message for unsupported ones (e.g. iPhone HEIC).
+    if (file) onSelect(file);
   }
 
   return (
@@ -33,7 +35,7 @@ export default function UploadArea({ onSelect, previewUrl, loading }: Props) {
       <input
         ref={inputRef}
         type="file"
-        accept="image/*"
+        accept="image/jpeg,image/png,image/webp,image/gif"
         hidden
         onChange={(e) => pick(e.target.files)}
       />
