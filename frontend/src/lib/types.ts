@@ -31,6 +31,39 @@ export interface SearchResponse {
   facets: Record<string, FacetCount[]>;
 }
 
+export interface PriceMatch {
+  ingredient: string;
+  display_name: string;
+  brand: string;
+  store_id: string;
+  store_name: string;
+  category: string;
+  unit: string;
+  price: number;
+  unit_price: number;
+}
+
+export interface PricedIngredient {
+  ingredient: string;
+  best: PriceMatch;
+  alternatives: PriceMatch[];
+}
+
+export interface PriceLookupResponse {
+  currency: string;
+  items: PricedIngredient[];
+  unpriced: string[];
+  basket_total: number;
+}
+
+export interface StorePricedItem {
+  ingredient: string;
+  display_name: string;
+  brand: string;
+  price: number;
+  unit: string;
+}
+
 export interface StoreResult {
   id: string;
   name: string;
@@ -40,11 +73,15 @@ export interface StoreResult {
   distance_km: number | null;
   carries: string[];
   missing_here: string[];
+  priced_items: StorePricedItem[];
+  est_price: number | null;
 }
 
 export interface FindStoresResponse {
   count: number;
   normalized_ingredients: string[];
   origin: { lat: number; lng: number };
+  radius_km: number;
+  currency: string;
   stores: StoreResult[];
 }

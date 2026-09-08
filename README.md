@@ -81,10 +81,11 @@ Open <http://localhost:5173>, drop in any image, and walk the flow.
 | `.env` | `VISION_PROVIDER` | `auto` | `auto` \| `mock` \| `anthropic` \| `openai` \| `gemini` |
 | `.env` | `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` / `GEMINI_API_KEY` | — | pick one to enable a real vision model |
 | `.env` | `ANTHROPIC_VISION_MODEL` | `claude-opus-5` | override the model per provider |
-| `.env` | `FALLBACK_LAT` / `FALLBACK_LNG` | Bangalore | used by `/find-stores` when the client sends no coords |
+| `.env` | `FALLBACK_LAT` / `FALLBACK_LNG` | West Lafayette, IN | used by `/find-stores` when the client sends no coords |
+| `.env` | `CURRENCY` | `USD` | currency shown for grocery prices |
 | `.env` | `CORS_ORIGINS` | `localhost:5173` | comma-separated allowed origins |
 | `frontend/.env` | `VITE_API_BASE` | `http://localhost:8000` | backend base URL |
-| `frontend/.env` | `VITE_FALLBACK_LAT` / `_LNG` | Bangalore | used when the browser denies geolocation |
+| `frontend/.env` | `VITE_FALLBACK_LAT` / `_LNG` | West Lafayette, IN | used when the browser denies geolocation |
 
 ---
 
@@ -97,6 +98,7 @@ Open <http://localhost:5173>, drop in any image, and walk the flow.
 | `POST` | `/search-recipes` | `{ingredients[], query?, cuisine?, max_cooking_time?, tags[]}` | ranked recipe cards + facets |
 | `GET` | `/recipes/{id}` | — | raw Typesense document |
 | `POST` | `/find-stores` | `{ingredients[], lat?, lng?, radius_km?, require_all?}` | geo-sorted stores + per-store carry/missing |
+| `POST` | `/price-lookup` | `{ingredients[], category?, store_id?}` | cheapest in-stock match per ingredient (+ alternatives) from the `prices` index, `unit_price`-ranked, plus a basket total |
 
 ### Recipe ranking
 
@@ -149,8 +151,9 @@ uncomment to use them.
 |---|---|
 | Fridge ingredient detection | **Mocked by default** (fixed 13-ingredient list). Real Claude/OpenAI/Gemini vision if a key is set. |
 | Recipes | 17 hand-written realistic recipes in `scripts/data/recipes.json` |
-| Stores | 8 mock Bangalore grocery stores with real-ish coordinates + varied inventories in `scripts/data/stores.json` |
+| Stores | 8 mock Lafayette / West Lafayette, IN grocery stores with real-ish coordinates + varied inventories in `scripts/data/stores.json` |
 | Store inventory | Seeded manually; `/find-stores` filters stores by whether their `inventory` array carries the missing ingredients |
+| Grocery prices | **Fabricated** — 132 rows / 44 ingredients in `scripts/data/grocery_prices.csv` (store × category: conventional / organic / bulk / value). Seeded into a second Typesense collection `prices`; `/price-lookup` ranks by `unit_price`. No real grocery APIs. |
 | Auth / deployment | Not implemented (hackathon scope) |
 
 ---
@@ -195,8 +198,8 @@ mobile app.
 
 **Team**
 
-- **Jiya** — Ingredient input: photo upload UI, vision API integration, prompt tuning.
+- **Kriti** — Ingredient input: photo upload UI, vision API integration, prompt tuning.
 - **Ab** — Recipe search core: Typesense schema, dataset indexing, search/ranking logic, results UI.
-- **Kriti** — Grocery price feature: fabricated price dataset, second Typesense index, "willing to buy" toggle, missing-ingredient price lookup.
+- **Jiya** — Grocery price feature: fabricated price dataset, second Typesense index, "willing to buy" toggle, missing-ingredient price lookup.
 
 </details>

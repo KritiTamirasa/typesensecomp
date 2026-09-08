@@ -1,0 +1,133 @@
+ingredient,display_name,brand,store_id,store_name,category,unit,price,unit_price,in_stock
+paneer,Fresh Paneer Block,Milky Mist,s2,Kroger West Lafayette,organic,200 g,4.29,2.14,true
+paneer,Fresh Paneer Block,Nandini,s1,Pay Less Super Market,conventional,200 g,3.04,1.52,true
+paneer,Fresh Paneer Block,id Fresh,s6,Walmart Supercenter,conventional,200 g,3.46,1.73,true
+mozzarella,Mozzarella Cheese,Amul,s2,Kroger West Lafayette,conventional,200 g,7.79,3.89,true
+mozzarella,Mozzarella Cheese,Go,s5,Meijer Lafayette,value,200 g,5.78,2.89,true
+mozzarella,Mozzarella Cheese,Flanders,s4,Fresh Thyme Market,bulk,200 g,5.97,2.99,true
+parmesan,Parmesan Wedge,Britannia,s4,Fresh Thyme Market,value,150 g,7.02,4.68,true
+parmesan,Parmesan Wedge,Kraft,s6,Walmart Supercenter,bulk,150 g,7.74,5.16,true
+parmesan,Parmesan Wedge,Zydus,s7,Nature's Pantry Organic Market,conventional,150 g,10.87,7.25,true
+feta,Feta Cheese,Drums Food,s3,Aldi Lafayette,organic,200 g,11.88,5.94,false
+feta,Feta Cheese,Milky Mist,s6,Walmart Supercenter,value,200 g,6.63,3.32,true
+feta,Feta Cheese,Kalona,s4,Fresh Thyme Market,conventional,200 g,8.28,4.14,true
+cheddar cheese,Cheddar Block,Amul,s7,Nature's Pantry Organic Market,organic,200 g,8.79,4.39,true
+cheddar cheese,Cheddar Block,Britannia,s1,Pay Less Super Market,value,200 g,4.23,2.11,true
+cheddar cheese,Cheddar Block,Go,s3,Aldi Lafayette,conventional,200 g,6.57,3.28,true
+cream,Fresh Cream,Amul,s7,Nature's Pantry Organic Market,organic,250 ml,2.96,1.18,true
+cream,Fresh Cream,Nandini,s1,Pay Less Super Market,value,250 ml,1.44,0.58,true
+cream,Fresh Cream,Milky Mist,s5,Meijer Lafayette,bulk,250 ml,1.86,0.74,true
+greek yogurt,Greek Yogurt,Epigamia,s5,Meijer Lafayette,conventional,400 g,5.94,1.49,true
+greek yogurt,Greek Yogurt,Milky Mist,s1,Pay Less Super Market,bulk,400 g,5.12,1.28,true
+greek yogurt,Greek Yogurt,Danone,s2,Kroger West Lafayette,conventional,400 g,5.59,1.40,true
+chicken breast,Boneless Chicken Breast,Licious,s6,Walmart Supercenter,organic,500 g,17.25,3.45,true
+chicken breast,Boneless Chicken Breast,FreshToHome,s2,Kroger West Lafayette,conventional,500 g,12.08,2.42,true
+chicken breast,Boneless Chicken Breast,Zorabian,s8,Target Lafayette,value,500 g,7.97,1.59,true
+shrimp,Cleaned Shrimp,FreshToHome,s8,Target Lafayette,value,250 g,8.87,3.55,true
+shrimp,Cleaned Shrimp,Licious,s4,Fresh Thyme Market,conventional,250 g,13.83,5.53,true
+shrimp,Cleaned Shrimp,Cambay,s3,Aldi Lafayette,organic,250 g,16.74,6.70,false
+chickpea,Dried Chickpeas,Tata Sampann,s1,Pay Less Super Market,bulk,500 g,2.26,0.49,true
+chickpea,Dried Chickpeas,24 Mantra,s7,Nature's Pantry Organic Market,organic,500 g,4.57,0.91,true
+chickpea,Dried Chickpeas,Organic India,s3,Aldi Lafayette,conventional,500 g,3.23,0.64,true
+cannellini beans,Cannellini Beans,American Garden,s6,Walmart Supercenter,bulk,400 g,7.14,1.78,true
+cannellini beans,Cannellini Beans,Del Monte,s2,Kroger West Lafayette,value,400 g,6.00,1.50,true
+cannellini beans,Cannellini Beans,Ktc,s8,Target Lafayette,organic,400 g,11.96,2.99,true
+coconut milk,Coconut Milk,Dabur,s5,Meijer Lafayette,bulk,200 ml,1.02,0.51,true
+coconut milk,Coconut Milk,Maggi,s6,Walmart Supercenter,value,200 ml,1.04,0.52,true
+coconut milk,Coconut Milk,Nature's Charm,s8,Target Lafayette,conventional,200 ml,1.35,0.68,true
+soy sauce,Light Soy Sauce,Ching's,s2,Kroger West Lafayette,conventional,200 ml,1.12,0.56,true
+soy sauce,Light Soy Sauce,Lee Kum Kee,s7,Nature's Pantry Organic Market,conventional,200 ml,1.24,0.62,true
+soy sauce,Light Soy Sauce,Kikkoman,s1,Pay Less Super Market,organic,200 ml,1.71,0.86,true
+sesame oil,Toasted Sesame Oil,Idhayam,s7,Nature's Pantry Organic Market,bulk,100 ml,1.16,1.16,true
+sesame oil,Toasted Sesame Oil,Dipasa,s4,Fresh Thyme Market,organic,100 ml,1.71,1.71,true
+sesame oil,Toasted Sesame Oil,Kadoya,s5,Meijer Lafayette,value,100 ml,0.99,0.99,true
+oyster sauce,Oyster Sauce,Lee Kum Kee,s5,Meijer Lafayette,organic,200 ml,3.32,1.66,true
+oyster sauce,Oyster Sauce,Ching's,s7,Nature's Pantry Organic Market,conventional,200 ml,2.38,1.19,true
+oyster sauce,Oyster Sauce,Maggi,s6,Walmart Supercenter,conventional,200 ml,2.62,1.31,true
+olive oil,Extra Virgin Olive Oil,Figaro,s5,Meijer Lafayette,value,500 ml,5.04,1.01,true
+olive oil,Extra Virgin Olive Oil,Borges,s8,Target Lafayette,conventional,500 ml,7.71,1.54,true
+olive oil,Extra Virgin Olive Oil,Del Monte,s2,Kroger West Lafayette,organic,500 ml,10.73,2.15,true
+balsamic vinegar,Balsamic Vinegar,Borges,s3,Aldi Lafayette,value,250 ml,3.04,1.22,true
+balsamic vinegar,Balsamic Vinegar,Colavita,s8,Target Lafayette,conventional,250 ml,4.07,1.63,true
+balsamic vinegar,Balsamic Vinegar,Wingreens,s2,Kroger West Lafayette,organic,250 ml,6.84,2.74,true
+garam masala,Garam Masala,Everest,s5,Meijer Lafayette,conventional,100 g,2.35,2.35,true
+garam masala,Garam Masala,MDH,s2,Kroger West Lafayette,conventional,100 g,2.39,2.39,true
+garam masala,Garam Masala,Tata Sampann,s1,Pay Less Super Market,bulk,100 g,1.97,1.97,true
+cumin,Cumin Seeds,Everest,s3,Aldi Lafayette,bulk,100 g,0.72,0.72,true
+cumin,Cumin Seeds,Catch,s2,Kroger West Lafayette,conventional,100 g,0.92,0.92,true
+cumin,Cumin Seeds,Tata Sampann,s6,Walmart Supercenter,value,100 g,0.69,0.69,true
+turmeric,Turmeric Powder,Everest,s4,Fresh Thyme Market,bulk,100 g,0.52,0.52,true
+turmeric,Turmeric Powder,MDH,s6,Walmart Supercenter,organic,100 g,0.83,0.83,true
+turmeric,Turmeric Powder,24 Mantra,s3,Aldi Lafayette,conventional,100 g,0.57,0.57,true
+paprika,Paprika Powder,Catch,s2,Kroger West Lafayette,value,100 g,1.09,1.09,true
+paprika,Paprika Powder,Keya,s3,Aldi Lafayette,conventional,100 g,1.51,1.51,true
+paprika,Paprika Powder,Pansari,s1,Pay Less Super Market,organic,100 g,2.37,2.37,true
+basil,Fresh Basil,Farmizen,s4,Fresh Thyme Market,organic,50 g,1.99,3.98,true
+basil,Fresh Basil,Gourmet Garden,s1,Pay Less Super Market,conventional,50 g,1.55,3.10,true
+basil,Fresh Basil,Ooo Farms,s7,Nature's Pantry Organic Market,value,50 g,0.99,1.98,true
+cilantro,Fresh Cilantro,Local Farm,s3,Aldi Lafayette,value,100 g,0.49,0.49,true
+cilantro,Fresh Cilantro,Farmizen,s6,Walmart Supercenter,bulk,100 g,0.49,0.49,true
+cilantro,Fresh Cilantro,Gourmet,s5,Meijer Lafayette,conventional,100 g,0.49,0.49,true
+ginger,Fresh Ginger,Local Farm,s2,Kroger West Lafayette,organic,250 g,1.30,0.52,true
+ginger,Fresh Ginger,24 Mantra,s6,Walmart Supercenter,bulk,250 g,0.78,0.49,true
+ginger,Fresh Ginger,Farmizen,s4,Fresh Thyme Market,conventional,250 g,0.97,0.49,true
+bell pepper,Bell Pepper,Local Farm,s2,Kroger West Lafayette,organic,500 g,3.94,0.79,true
+bell pepper,Bell Pepper,Farmizen,s1,Pay Less Super Market,conventional,500 g,3.02,0.60,true
+bell pepper,Bell Pepper,Ooo Farms,s4,Fresh Thyme Market,bulk,500 g,2.23,0.49,true
+eggplant,Eggplant,Local Farm,s3,Aldi Lafayette,conventional,500 g,1.99,0.49,true
+eggplant,Eggplant,Farmizen,s8,Target Lafayette,conventional,500 g,2.01,0.49,true
+eggplant,Eggplant,24 Mantra,s4,Fresh Thyme Market,value,500 g,1.21,0.49,true
+spinach,Spinach Bunch,Local Farm,s1,Pay Less Super Market,conventional,250 g,1.12,0.49,true
+spinach,Spinach Bunch,Farmizen,s8,Target Lafayette,bulk,250 g,0.97,0.49,true
+spinach,Spinach Bunch,Ooo Farms,s2,Kroger West Lafayette,value,250 g,0.85,0.49,true
+tortilla,Wheat Tortilla,Mission,s3,Aldi Lafayette,bulk,6 pcs,2.76,0.49,true
+tortilla,Wheat Tortilla,Signature,s4,Fresh Thyme Market,organic,6 pcs,5.24,0.87,true
+tortilla,Wheat Tortilla,La Banderita,s1,Pay Less Super Market,conventional,6 pcs,3.77,0.63,true
+flatbread,Naan Flatbread,iD Fresh,s8,Target Lafayette,organic,4 pcs,5.12,1.28,true
+flatbread,Naan Flatbread,Mom Made,s2,Kroger West Lafayette,conventional,4 pcs,3.63,0.91,true
+flatbread,Naan Flatbread,Haldiram's,s7,Nature's Pantry Organic Market,conventional,4 pcs,3.78,0.94,true
+breadcrumbs,Panko Breadcrumbs,Keya,s1,Pay Less Super Market,bulk,200 g,1.97,0.98,true
+breadcrumbs,Panko Breadcrumbs,Urban Platter,s8,Target Lafayette,conventional,200 g,2.06,1.03,true
+breadcrumbs,Panko Breadcrumbs,Blue Bird,s5,Meijer Lafayette,conventional,200 g,2.11,1.05,true
+honey,Raw Honey,Dabur,s2,Kroger West Lafayette,bulk,250 g,2.56,1.03,true
+honey,Raw Honey,24 Mantra,s6,Walmart Supercenter,conventional,250 g,3.44,1.38,true
+honey,Raw Honey,Beeco,s8,Target Lafayette,organic,250 g,4.84,1.94,true
+vegetable broth,Vegetable Stock,Knorr,s7,Nature's Pantry Organic Market,value,500 ml,1.73,0.49,true
+vegetable broth,Vegetable Stock,Maggi,s6,Walmart Supercenter,organic,500 ml,3.83,0.77,true
+vegetable broth,Vegetable Stock,Urban Platter,s5,Meijer Lafayette,conventional,500 ml,2.49,0.50,true
+pasta,Penne Pasta,Del Monte,s7,Nature's Pantry Organic Market,organic,500 g,3.42,0.68,true
+pasta,Penne Pasta,Borges,s2,Kroger West Lafayette,bulk,500 g,1.96,0.49,true
+pasta,Penne Pasta,Disano,s6,Walmart Supercenter,conventional,500 g,2.03,0.49,true
+rice,Basmati Rice,India Gate,s2,Kroger West Lafayette,conventional,1 kg,9.78,0.98,true
+rice,Basmati Rice,Daawat,s1,Pay Less Super Market,organic,1 kg,13.56,1.36,true
+rice,Basmati Rice,Kohinoor,s5,Meijer Lafayette,conventional,1 kg,9.68,0.97,true
+salt,Iodized Salt,Tata,s6,Walmart Supercenter,bulk,1 kg,1.64,0.49,true
+salt,Iodized Salt,Aashirvaad,s3,Aldi Lafayette,organic,1 kg,2.78,0.49,true
+salt,Iodized Salt,Catch,s2,Kroger West Lafayette,value,1 kg,1.32,0.49,true
+black pepper,Black Pepper Powder,Everest,s5,Meijer Lafayette,conventional,100 g,3.64,3.64,true
+black pepper,Black Pepper Powder,MDH,s6,Walmart Supercenter,organic,100 g,4.95,4.95,true
+black pepper,Black Pepper Powder,Catch,s1,Pay Less Super Market,conventional,100 g,3.14,3.14,true
+flour,All-Purpose Flour,Aashirvaad,s5,Meijer Lafayette,organic,1 kg,5.39,0.54,true
+flour,All-Purpose Flour,Pillsbury,s8,Target Lafayette,conventional,1 kg,3.57,0.49,true
+flour,All-Purpose Flour,Fortune,s2,Kroger West Lafayette,value,1 kg,2.62,0.49,true
+baking powder,Baking Powder,Weikfield,s1,Pay Less Super Market,bulk,100 g,0.65,0.65,true
+baking powder,Baking Powder,Blue Bird,s8,Target Lafayette,organic,100 g,1.33,1.33,true
+baking powder,Baking Powder,Urban Platter,s6,Walmart Supercenter,conventional,100 g,0.92,0.92,true
+vanilla,Vanilla Essence,Weikfield,s5,Meijer Lafayette,bulk,50 ml,0.54,1.08,true
+vanilla,Vanilla Essence,Keya,s2,Kroger West Lafayette,value,50 ml,0.49,0.96,true
+vanilla,Vanilla Essence,Sprig,s6,Walmart Supercenter,organic,50 ml,1.13,2.26,true
+parsley,Fresh Parsley,Farmizen,s3,Aldi Lafayette,organic,50 g,2.19,4.37,true
+parsley,Fresh Parsley,Gourmet Garden,s5,Meijer Lafayette,conventional,50 g,1.62,3.25,true
+parsley,Fresh Parsley,Ooo Farms,s1,Pay Less Super Market,bulk,50 g,1.46,2.92,true
+celery,Celery Stalks,Farmizen,s1,Pay Less Super Market,conventional,200 g,2.85,1.43,true
+celery,Celery Stalks,Local Farm,s3,Aldi Lafayette,conventional,200 g,2.91,1.45,true
+celery,Celery Stalks,Ooo Farms,s2,Kroger West Lafayette,value,200 g,1.85,0.93,true
+romaine lettuce,Romaine Lettuce,Farmizen,s3,Aldi Lafayette,conventional,250 g,3.51,1.40,true
+romaine lettuce,Romaine Lettuce,Local Farm,s2,Kroger West Lafayette,bulk,250 g,3.25,1.30,true
+romaine lettuce,Romaine Lettuce,Simply Fresh,s7,Nature's Pantry Organic Market,conventional,250 g,3.96,1.58,true
+crouton,Garlic Croutons,Keya,s7,Nature's Pantry Organic Market,conventional,100 g,2.38,2.38,true
+crouton,Garlic Croutons,Urban Platter,s8,Target Lafayette,organic,100 g,2.90,2.90,true
+crouton,Garlic Croutons,Blue Bird,s6,Walmart Supercenter,conventional,100 g,2.42,2.42,true
+clarified butter,Pure Ghee,Amul,s8,Target Lafayette,bulk,500 ml,3.83,0.77,true
+clarified butter,Pure Ghee,Nandini,s2,Kroger West Lafayette,organic,500 ml,6.77,1.35,true
+clarified butter,Pure Ghee,GRB,s7,Nature's Pantry Organic Market,conventional,500 ml,4.25,0.85,true

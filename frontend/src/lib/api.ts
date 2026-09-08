@@ -1,6 +1,7 @@
 import type {
   AnalyzeResponse,
   FindStoresResponse,
+  PriceLookupResponse,
   SearchResponse,
 } from "./types";
 
@@ -36,6 +37,7 @@ export async function searchRecipes(params: {
   cuisine?: string | null;
   max_cooking_time?: number | null;
   tags?: string[];
+  willing_to_buy?: boolean;
 }): Promise<SearchResponse> {
   const res = await fetch(`${API_BASE}/search-recipes`, {
     method: "POST",
@@ -55,7 +57,20 @@ export async function findStores(params: {
   const res = await fetch(`${API_BASE}/find-stores`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ radius_km: 25, ...params }),
+    body: JSON.stringify({ radius_km: 16, ...params }),
   });
   return handle<FindStoresResponse>(res);
+}
+
+export async function priceLookup(params: {
+  ingredients: string[];
+  category?: string | null;
+  store_id?: string | null;
+}): Promise<PriceLookupResponse> {
+  const res = await fetch(`${API_BASE}/price-lookup`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params),
+  });
+  return handle<PriceLookupResponse>(res);
 }

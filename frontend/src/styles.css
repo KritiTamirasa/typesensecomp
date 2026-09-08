@@ -300,6 +300,33 @@ header h1 {
 .missing-list li {
   color: var(--missing);
 }
+.missing-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.price-tag {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.buy-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 4px;
+  padding: 10px 12px;
+  background: var(--missing-bg);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
 .instructions {
   white-space: pre-line;
   background: #f9fafb;
@@ -325,6 +352,38 @@ header h1 {
 .distance {
   font-weight: 600;
   color: var(--brand);
+}
+.store-meta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.store-prices {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  border-top: 1px solid var(--line);
+}
+.store-prices li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  padding: 3px 0;
+  font-size: 0.85rem;
+}
+
+.radius-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.radius-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--brand);
 }
 
 footer {

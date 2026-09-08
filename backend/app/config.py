@@ -36,8 +36,12 @@ class Settings:
     gemini_model: str = os.getenv("GEMINI_VISION_MODEL", "gemini-1.5-flash")
 
     # --- Geo fallback (used when the browser denies geolocation) ---
-    fallback_lat: float = float(os.getenv("FALLBACK_LAT", "12.9716"))   # Bangalore
-    fallback_lng: float = float(os.getenv("FALLBACK_LNG", "77.5946"))
+    # West Lafayette, IN (Purdue campus area).
+    fallback_lat: float = float(os.getenv("FALLBACK_LAT", "40.4259"))
+    fallback_lng: float = float(os.getenv("FALLBACK_LNG", "-86.9081"))
+
+    # --- Currency (grocery price index) ---
+    currency: str = os.getenv("CURRENCY", "USD")
 
     # --- CORS ---
     cors_origins: list[str] = os.getenv(

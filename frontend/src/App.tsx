@@ -5,6 +5,7 @@ import RecipeCardView from "./components/RecipeCard";
 import RecipeDetail from "./components/RecipeDetail";
 import { analyzeFridge, findStores, searchRecipes } from "./lib/api";
 import { getLocation } from "./lib/geo";
+import { milesToKm } from "./lib/format";
 import type {
   FindStoresResponse,
   RecipeCard,
@@ -21,6 +22,8 @@ export default function App() {
   const [provider, setProvider] = useState<string | null>(null);
   const [query, setQuery] = useState("");
 
+  const [willingToBuy, setWillingToBuy] = useState(false);
+
   const [analyzing, setAnalyzing] = useState(false);
   const [searching, setSearching] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -34,6 +37,7 @@ export default function App() {
   const [originSource, setOriginSource] = useState<
     "browser" | "fallback" | null
   >(null);
+  const [radiusMi, setRadiusMi] = useState(10);
 
   useEffect(() => {
     return () => {
@@ -58,13 +62,14 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previewUrl]);
 
-  async function runSearch() {
+  async function runSearch(willing: boolean = willingToBuy) {
     setError(null);
     setSearching(true);
     try {
       const res = await searchRecipes({
         ingredients,
         query: query.trim() || undefined,
+        willing_to_buy: willing,
       });
       setResults(res);
       setStage("results");
@@ -93,6 +98,7 @@ export default function App() {
         ingredients: selected.missing_ingredients,
         lat: loc.lat,
         lng: loc.lng,
+        radius_km: milesToKm(radiusMi),
       });
       setStores(res);
     } catch (e) {
@@ -150,7 +156,7 @@ export default function App() {
 
               <button
                 className="primary-btn big"
-                onClick={runSearch}
+                onClick={() => runSearch()}
                 disabled={searching}
               >
                 {searching ? "Searching…" : "🍳 Find Recipes"}
@@ -174,6 +180,23 @@ export default function App() {
           <p className="muted small">
             Using: {results.normalized_ingredients.join(", ") || "no ingredients"}
           </p>
+          <label className="buy-toggle">
+            <input
+              type="checkbox"
+              checked={willingToBuy}
+              onChange={(e) => {
+                const next = e.target.checked;
+                setWillingToBuy(next);
+                runSearch(next);
+              }}
+            />
+            🛒 I'm willing to buy missing ingredients
+            <span className="muted small">
+              {willingToBuy
+                ? " — showing prices, all recipes ranked"
+                : " — prioritizing recipes you can almost make"}
+            </span>
+          </label>
           <div className="recipe-grid">
             {results.recipes.map((r) => (
               <RecipeCardView key={r.id} recipe={r} onOpen={openRecipe} />
@@ -189,8 +212,11 @@ export default function App() {
         <section className="panel">
           <RecipeDetail
             recipe={selected}
+            willingToBuy={willingToBuy}
             onBack={() => setStage("results")}
             onFindStores={findNearbyStores}
+            radiusMi={radiusMi}
+            onRadiusChange={setRadiusMi}
             stores={stores}
             storesLoading={storesLoading}
             storesError={storesError}

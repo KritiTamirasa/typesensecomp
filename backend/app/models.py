@@ -17,6 +17,9 @@ class SearchRecipesRequest(BaseModel):
     max_cooking_time: int | None = None
     tags: list[str] = Field(default_factory=list)
     per_page: int = 20
+    # When False, the user is not willing to buy groceries, so recipes with many
+    # missing ingredients are pushed down harder. Default True keeps prior behaviour.
+    willing_to_buy: bool = True
 
 
 class RecipeCard(BaseModel):
@@ -46,12 +49,51 @@ class SearchRecipesResponse(BaseModel):
     facets: dict[str, list[FacetCount]]
 
 
+class PriceLookupRequest(BaseModel):
+    ingredients: list[str]
+    category: str | None = None
+    store_id: str | None = None
+
+
+class PriceMatch(BaseModel):
+    ingredient: str
+    display_name: str
+    brand: str
+    store_id: str
+    store_name: str
+    category: str
+    unit: str
+    price: float
+    unit_price: float
+
+
+class PricedIngredient(BaseModel):
+    ingredient: str
+    best: PriceMatch
+    alternatives: list[PriceMatch]
+
+
+class PriceLookupResponse(BaseModel):
+    currency: str
+    items: list[PricedIngredient]
+    unpriced: list[str]
+    basket_total: float
+
+
 class FindStoresRequest(BaseModel):
     ingredients: list[str]
     lat: float | None = None
     lng: float | None = None
     radius_km: float = 10.0
     require_all: bool = False
+
+
+class StorePricedItem(BaseModel):
+    ingredient: str
+    display_name: str
+    brand: str
+    price: float
+    unit: str
 
 
 class StoreResult(BaseModel):
@@ -63,10 +105,14 @@ class StoreResult(BaseModel):
     distance_km: float | None
     carries: list[str]
     missing_here: list[str]
+    priced_items: list[StorePricedItem] = Field(default_factory=list)
+    est_price: float | None = None
 
 
 class FindStoresResponse(BaseModel):
     count: int
     normalized_ingredients: list[str]
     origin: dict[str, float]
+    radius_km: float
+    currency: str
     stores: list[StoreResult]

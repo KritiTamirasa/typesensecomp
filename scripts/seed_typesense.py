@@ -8,6 +8,7 @@ Reads connection settings from the same env vars the backend uses
 """
 from __future__ import annotations
 
+import csv
 import json
 import os
 import sys
@@ -18,10 +19,13 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "backend"))
 from app.config import get_settings  # noqa: E402
 from app.ingredients import (  # noqa: E402
     SYNONYM_SET_NAME,
+    normalize_ingredient,
     normalize_list,
     typesense_synonym_items,
 )
 from app.typesense_client import (  # noqa: E402
+    PRICES_COLLECTION,
+    PRICES_SCHEMA,
     RECIPES_COLLECTION,
     RECIPES_SCHEMA,
     STORES_COLLECTION,
@@ -66,6 +70,31 @@ def seed_stores(client) -> None:
     _report(res, "stores")
 
 
+def seed_prices(client) -> None:
+    path = os.path.join(DATA_DIR, "grocery_prices.csv")
+    docs: list[dict] = []
+    with open(path, encoding="utf-8") as f:
+        for i, row in enumerate(csv.DictReader(f)):
+            ingredient = normalize_ingredient(row["ingredient"])
+            docs.append(
+                {
+                    "id": f"p{i}",
+                    "ingredient": ingredient,
+                    "display_name": row["display_name"],
+                    "brand": row["brand"],
+                    "store_id": row["store_id"],
+                    "store_name": row["store_name"],
+                    "category": row["category"],
+                    "unit": row["unit"],
+                    "price": float(row["price"]),
+                    "unit_price": float(row["unit_price"]),
+                    "in_stock": row["in_stock"].strip().lower() == "true",
+                }
+            )
+    res = client.collections[PRICES_COLLECTION].documents.import_(docs, {"action": "upsert"})
+    _report(res, "prices")
+
+
 def seed_synonyms() -> None:
     """Use the v28+ synonym-set API via raw HTTP (python client lacks it)."""
     import requests
@@ -84,7 +113,7 @@ def seed_synonyms() -> None:
     r.raise_for_status()
 
     # Attach the set to both collections so search picks it up automatically.
-    for coll in (RECIPES_COLLECTION, STORES_COLLECTION):
+    for coll in (RECIPES_COLLECTION, STORES_COLLECTION, PRICES_COLLECTION):
         requests.patch(
             f"{base}/collections/{coll}",
             json={"synonym_sets": [SYNONYM_SET_NAME]},
@@ -112,10 +141,13 @@ def main() -> None:
     print("Recreating collections...")
     _recreate(client, RECIPES_SCHEMA)
     _recreate(client, STORES_SCHEMA)
+    _recreate(client, PRICES_SCHEMA)
     print("Seeding recipes...")
     seed_recipes(client)
     print("Seeding stores...")
     seed_stores(client)
+    print("Seeding prices...")
+    seed_prices(client)
     print("Seeding synonyms...")
     seed_synonyms()
     print("\nDone. Typesense is seeded and ready.")

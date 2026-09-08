@@ -12,6 +12,8 @@ from ..models import (
 )
 from ..typesense_client import RECIPES_COLLECTION, get_client
 
+_MAX_MISSING_NO_BUY = 2
+
 _TIME_PATTERNS = [
     re.compile(r"under\s+(\d+)"),
     re.compile(r"less\s+than\s+(\d+)"),
@@ -115,13 +117,23 @@ def search_recipes(req: SearchRecipesRequest) -> SearchRecipesResponse:
             match_score=round(match_score, 3),
             available_percentage=round(match_score * 100),
         )
-        cards.append((match_score, -len(missing_here), text_match, card))
+        # "Buyable" = few enough missing items to be worth cooking without a
+        # grocery run. Used both to tier the sort and to filter when the user
+        # has said they won't buy anything.
+        buyable = len(missing_here) <= _MAX_MISSING_NO_BUY
+        cards.append((1 if buyable else 0, match_score, -len(missing_here), text_match, card))
 
     if owned_set:
-        cards.sort(key=lambda t: (t[0], t[1], t[2]), reverse=True)
+        cards.sort(key=lambda t: (t[0], t[1], t[2], t[3]), reverse=True)
     # else: keep Typesense relevance order
 
-    trimmed = [c[3] for c in cards][: max(1, req.per_page)]
+    if not req.willing_to_buy and owned_set:
+        # Hide recipes that need a big shop; fall back to the top few if that
+        # would empty the list entirely.
+        buyable_cards = [c for c in cards if c[0] == 1]
+        cards = buyable_cards or cards[:3]
+
+    trimmed = [c[4] for c in cards][: max(1, req.per_page)]
     return SearchRecipesResponse(
         count=len(trimmed),
         normalized_ingredients=owned,

@@ -12,12 +12,20 @@ from .models import (
     AnalyzeFridgeResponse,
     FindStoresRequest,
     FindStoresResponse,
+    PriceLookupRequest,
+    PriceLookupResponse,
     SearchRecipesRequest,
     SearchRecipesResponse,
 )
+from .services.price_search import lookup_prices
 from .services.recipe_search import get_recipe, search_recipes
 from .services.store_search import find_stores
-from .typesense_client import RECIPES_COLLECTION, STORES_COLLECTION, get_client
+from .typesense_client import (
+    PRICES_COLLECTION,
+    RECIPES_COLLECTION,
+    STORES_COLLECTION,
+    get_client,
+)
 from .vision import get_vision_provider
 
 logging.basicConfig(level=logging.INFO)
@@ -51,6 +59,7 @@ def health() -> dict:
         "collections": collections,
         "recipes_indexed": RECIPES_COLLECTION in collections,
         "stores_indexed": STORES_COLLECTION in collections,
+        "prices_indexed": PRICES_COLLECTION in collections,
         "vision_provider": get_vision_provider().name,
     }
 
@@ -94,6 +103,17 @@ def get_recipe_endpoint(recipe_id: str) -> dict:
     if not doc:
         raise HTTPException(404, "recipe not found")
     return doc
+
+
+@app.post("/price-lookup", response_model=PriceLookupResponse)
+def price_lookup_endpoint(req: PriceLookupRequest) -> PriceLookupResponse:
+    if not req.ingredients:
+        raise HTTPException(400, "ingredients list is required")
+    try:
+        return lookup_prices(req)
+    except Exception as exc:  # noqa: BLE001
+        logging.exception("price lookup failed")
+        raise HTTPException(502, f"price lookup error: {exc}") from exc
 
 
 @app.post("/find-stores", response_model=FindStoresResponse)

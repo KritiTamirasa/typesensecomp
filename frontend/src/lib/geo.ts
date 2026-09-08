@@ -1,10 +1,12 @@
-const FALLBACK_LAT = Number(import.meta.env.VITE_FALLBACK_LAT ?? "12.9716");
-const FALLBACK_LNG = Number(import.meta.env.VITE_FALLBACK_LNG ?? "77.5946");
+// West Lafayette, IN (Purdue campus area).
+const FALLBACK_LAT = Number(import.meta.env.VITE_FALLBACK_LAT ?? "40.4259");
+const FALLBACK_LNG = Number(import.meta.env.VITE_FALLBACK_LNG ?? "-86.9081");
 
 export interface Coords {
   lat: number;
   lng: number;
   source: "browser" | "fallback";
+  accuracy_m?: number;
 }
 
 export function getLocation(): Promise<Coords> {
@@ -19,10 +21,13 @@ export function getLocation(): Promise<Coords> {
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
           source: "browser",
+          accuracy_m: pos.coords.accuracy,
         }),
       () =>
         resolve({ lat: FALLBACK_LAT, lng: FALLBACK_LNG, source: "fallback" }),
-      { timeout: 8000 },
+      // High accuracy + no cached fix: a stale/low-res cached position is the
+      // usual cause of a location landing in the wrong part of town.
+      { timeout: 10000, enableHighAccuracy: true, maximumAge: 0 },
     );
   });
 }
