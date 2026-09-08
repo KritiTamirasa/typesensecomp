@@ -32,6 +32,9 @@ class RecipeCard(BaseModel):
     missing_ingredients: list[str]
     match_score: float
     available_percentage: int
+    matched_count: int
+    missing_count: int
+    total_ingredients: int
 
 
 class FacetCount(BaseModel):

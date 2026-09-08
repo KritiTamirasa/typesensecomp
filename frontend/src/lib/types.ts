@@ -17,6 +17,9 @@ export interface RecipeCard {
   missing_ingredients: string[];
   match_score: number;
   available_percentage: number;
+  matched_count?: number;
+  missing_count?: number;
+  total_ingredients?: number;
 }
 
 export interface FacetCount {

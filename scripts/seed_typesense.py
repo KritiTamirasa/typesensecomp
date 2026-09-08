@@ -1,13 +1,15 @@
 """Seed Typesense with recipe and store data.
 
 Usage:
-    python scripts/seed_typesense.py          # drop + recreate + import everything
+    python scripts/seed_typesense.py             # create collections if missing, upsert data
+    python scripts/seed_typesense.py --recreate   # drop + recreate collections, then import
 
 Reads connection settings from the same env vars the backend uses
 (TYPESENSE_HOST / TYPESENSE_PORT / TYPESENSE_PROTOCOL / TYPESENSE_API_KEY).
 """
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import sys
@@ -44,6 +46,17 @@ def _recreate(client, schema: dict) -> None:
         print(f"  dropped existing '{name}'")
     except Exception:
         pass
+    client.collections.create(schema)
+    print(f"  created '{name}'")
+
+
+def _ensure_exists(client, schema: dict) -> None:
+    """Create the collection only if it isn't already there (idempotent)."""
+    name = schema["name"]
+    existing = {c["name"] for c in client.collections.retrieve()}
+    if name in existing:
+        print(f"  '{name}' already exists, leaving schema as-is")
+        return
     client.collections.create(schema)
     print(f"  created '{name}'")
 
@@ -108,10 +121,23 @@ def _report(result, label: str) -> None:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--recreate",
+        action="store_true",
+        help="drop and recreate the collections instead of leaving an existing schema in place",
+    )
+    args = parser.parse_args()
+
     client = get_client()
-    print("Recreating collections...")
-    _recreate(client, RECIPES_SCHEMA)
-    _recreate(client, STORES_SCHEMA)
+    if args.recreate:
+        print("Recreating collections...")
+        _recreate(client, RECIPES_SCHEMA)
+        _recreate(client, STORES_SCHEMA)
+    else:
+        print("Ensuring collections exist...")
+        _ensure_exists(client, RECIPES_SCHEMA)
+        _ensure_exists(client, STORES_SCHEMA)
     print("Seeding recipes...")
     seed_recipes(client)
     print("Seeding stores...")
