@@ -1,0 +1,58 @@
+[
+  {
+    "id": "s1",
+    "name": "MG Road Fresh Market",
+    "location": [12.9758, 77.6045],
+    "address": "12 MG Road, Bengaluru 560001",
+    "inventory": ["tomato", "onion", "garlic", "spinach", "basil", "bell pepper", "mozzarella", "parmesan", "spaghetti", "olive oil", "lemon", "eggs"]
+  },
+  {
+    "id": "s2",
+    "name": "Indiranagar Green Grocer",
+    "location": [12.9719, 77.6412],
+    "address": "100 Feet Road, Indiranagar, Bengaluru 560038",
+    "inventory": ["paneer", "spinach", "cream", "garam masala", "ginger", "cilantro", "chickpea", "turmeric", "coriander", "clarified butter", "tomato", "onion"]
+  },
+  {
+    "id": "s3",
+    "name": "Jayanagar Daily Needs",
+    "location": [12.9299, 77.5833],
+    "address": "4th Block, Jayanagar, Bengaluru 560011",
+    "inventory": ["rice", "carrot", "peas", "scallion", "soy sauce", "sesame oil", "eggs", "coconut milk", "vegetable broth", "flour"]
+  },
+  {
+    "id": "s4",
+    "name": "Koramangala Gourmet Foods",
+    "location": [12.9352, 77.6245],
+    "address": "80 Feet Road, Koramangala, Bengaluru 560095",
+    "inventory": ["shrimp", "chicken breast", "mozzarella", "feta", "parmesan", "basil", "eggplant", "breadcrumbs", "chili flakes", "butter", "lemon", "olive oil"]
+  },
+  {
+    "id": "s5",
+    "name": "Malleshwaram Provision Store",
+    "location": [13.0035, 77.5647],
+    "address": "8th Cross, Malleshwaram, Bengaluru 560003",
+    "inventory": ["tomato", "onion", "garlic", "ginger", "cumin", "coriander", "turmeric", "chickpea", "cilantro", "paprika", "flour", "honey"]
+  },
+  {
+    "id": "s6",
+    "name": "Whitefield Hypermart",
+    "location": [12.9698, 77.7500],
+    "address": "ITPL Main Road, Whitefield, Bengaluru 560066",
+    "inventory": ["chicken breast", "eggs", "milk", "butter", "cheddar cheese", "greek yogurt", "spinach", "romaine lettuce", "croutons", "tortilla", "flatbread", "baking powder", "vanilla"]
+  },
+  {
+    "id": "s7",
+    "name": "HSR Layout Organic Corner",
+    "location": [12.9116, 77.6473],
+    "address": "27th Main, HSR Layout, Bengaluru 560102",
+    "inventory": ["basil", "cannellini beans", "celery", "carrot", "spinach", "pasta", "vegetable broth", "olive oil", "balsamic vinegar", "mozzarella"]
+  },
+  {
+    "id": "s8",
+    "name": "Electronic City Value Bazaar",
+    "location": [12.8452, 77.6602],
+    "address": "Phase 1, Electronic City, Bengaluru 560100",
+    "inventory": ["rice", "eggs", "chili", "oyster sauce", "sugar", "soy sauce", "garlic", "chicken breast", "basil", "onion", "coconut milk"]
+  }
+]

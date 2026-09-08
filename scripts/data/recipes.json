@@ -1,0 +1,172 @@
+[
+  {
+    "id": "1",
+    "name": "Classic Spinach & Cheddar Omelette",
+    "description": "A fast, protein-packed omelette with wilted spinach and sharp cheddar.",
+    "ingredients": ["eggs", "spinach", "cheddar cheese", "butter", "milk", "salt", "black pepper"],
+    "cuisine": "American",
+    "instructions": "1. Whisk eggs with a splash of milk, salt and pepper. 2. Melt butter in a non-stick pan over medium heat. 3. Pour in eggs, let set for 30s, then add spinach and cheddar. 4. Fold and slide onto a plate.",
+    "cooking_time": 10,
+    "tags": ["breakfast", "vegetarian", "high protein", "quick", "under 30 minutes"]
+  },
+  {
+    "id": "2",
+    "name": "Garlic Butter Chicken with Lemon",
+    "description": "Pan-seared chicken breast in a glossy garlic-lemon butter sauce.",
+    "ingredients": ["chicken breast", "garlic", "butter", "lemon", "olive oil", "parsley", "salt", "black pepper"],
+    "cuisine": "American",
+    "instructions": "1. Season chicken and sear in olive oil 5-6 min per side. 2. Remove, lower heat, add butter and garlic. 3. Squeeze in lemon, return chicken, spoon sauce over. 4. Rest 5 min, garnish with parsley.",
+    "cooking_time": 25,
+    "tags": ["dinner", "high protein", "gluten free", "under 30 minutes"]
+  },
+  {
+    "id": "3",
+    "name": "Tomato Basil Spaghetti",
+    "description": "Weeknight spaghetti with a bright 15-minute fresh tomato sauce.",
+    "ingredients": ["spaghetti", "tomato", "garlic", "onion", "olive oil", "basil", "parmesan", "salt"],
+    "cuisine": "Italian",
+    "instructions": "1. Boil spaghetti until al dente. 2. Saute onion and garlic in olive oil. 3. Add chopped tomato, simmer 10 min, season. 4. Toss with pasta and basil, finish with parmesan.",
+    "cooking_time": 20,
+    "tags": ["dinner", "vegetarian", "italian", "under 30 minutes"]
+  },
+  {
+    "id": "4",
+    "name": "Shakshuka",
+    "description": "Eggs poached in a spiced simmer of tomatoes, onions and bell peppers.",
+    "ingredients": ["eggs", "tomato", "bell pepper", "onion", "garlic", "cumin", "paprika", "olive oil", "cilantro"],
+    "cuisine": "Middle Eastern",
+    "instructions": "1. Saute onion, bell pepper and garlic in olive oil. 2. Add cumin and paprika, then tomato; simmer 12 min. 3. Make wells, crack in eggs, cover and cook until set. 4. Scatter cilantro.",
+    "cooking_time": 30,
+    "tags": ["breakfast", "brunch", "vegetarian", "high protein"]
+  },
+  {
+    "id": "5",
+    "name": "Chicken Caesar Salad",
+    "description": "Crisp romaine, grilled chicken and a creamy yogurt Caesar dressing.",
+    "ingredients": ["chicken breast", "romaine lettuce", "greek yogurt", "parmesan", "garlic", "lemon", "croutons", "black pepper"],
+    "cuisine": "American",
+    "instructions": "1. Grill seasoned chicken, slice. 2. Blend yogurt, garlic, lemon, parmesan and pepper for dressing. 3. Toss romaine with dressing, top with chicken and croutons.",
+    "cooking_time": 20,
+    "tags": ["lunch", "salad", "high protein", "under 30 minutes"]
+  },
+  {
+    "id": "6",
+    "name": "Palak Paneer",
+    "description": "Soft paneer cubes in a smooth, lightly spiced spinach gravy.",
+    "ingredients": ["spinach", "paneer", "onion", "tomato", "garlic", "ginger", "clarified butter", "garam masala", "cream"],
+    "cuisine": "Indian",
+    "instructions": "1. Blanch and puree spinach. 2. Fry onion, ginger, garlic in ghee; add tomato and garam masala. 3. Stir in spinach puree and cream, simmer 8 min. 4. Fold in paneer, warm through.",
+    "cooking_time": 35,
+    "tags": ["dinner", "vegetarian", "indian", "high protein"]
+  },
+  {
+    "id": "7",
+    "name": "Veggie Fried Rice",
+    "description": "Cold-rice fried rice loaded with carrot, peas and scrambled egg.",
+    "ingredients": ["rice", "eggs", "carrot", "peas", "scallion", "garlic", "soy sauce", "sesame oil"],
+    "cuisine": "Chinese",
+    "instructions": "1. Scramble eggs, set aside. 2. Stir-fry carrot and garlic in sesame oil. 3. Add cold rice and peas, splash soy sauce. 4. Return eggs, toss with scallion.",
+    "cooking_time": 15,
+    "tags": ["dinner", "vegetarian", "quick", "under 30 minutes"]
+  },
+  {
+    "id": "8",
+    "name": "Caprese Stuffed Bell Peppers",
+    "description": "Roasted bell peppers filled with tomato, mozzarella and basil.",
+    "ingredients": ["bell pepper", "tomato", "mozzarella", "basil", "olive oil", "balsamic vinegar", "garlic", "salt"],
+    "cuisine": "Italian",
+    "instructions": "1. Halve and seed bell peppers, roast 15 min. 2. Fill with diced tomato, mozzarella and garlic. 3. Roast 12 min more. 4. Finish with basil and a balsamic drizzle.",
+    "cooking_time": 35,
+    "tags": ["dinner", "vegetarian", "italian", "low carb"]
+  },
+  {
+    "id": "9",
+    "name": "Greek Yogurt Pancakes",
+    "description": "Fluffy, tangy pancakes made lighter with Greek yogurt.",
+    "ingredients": ["greek yogurt", "eggs", "flour", "milk", "baking powder", "butter", "honey", "vanilla"],
+    "cuisine": "American",
+    "instructions": "1. Whisk yogurt, eggs, milk and vanilla. 2. Fold in flour and baking powder. 3. Cook on a buttered griddle until bubbles form, flip. 4. Serve with honey.",
+    "cooking_time": 20,
+    "tags": ["breakfast", "vegetarian", "under 30 minutes"]
+  },
+  {
+    "id": "10",
+    "name": "Minestrone Soup",
+    "description": "A hearty Italian vegetable and bean soup, great for using up produce.",
+    "ingredients": ["carrot", "onion", "celery", "tomato", "spinach", "cannellini beans", "pasta", "garlic", "vegetable broth", "olive oil"],
+    "cuisine": "Italian",
+    "instructions": "1. Sweat onion, carrot, celery and garlic in olive oil. 2. Add tomato and broth, simmer 15 min. 3. Add pasta and beans, cook 10 min. 4. Stir in spinach until wilted.",
+    "cooking_time": 40,
+    "tags": ["dinner", "soup", "vegetarian", "vegan option", "high fiber"]
+  },
+  {
+    "id": "11",
+    "name": "Chana Masala",
+    "description": "Chickpeas simmered in a tangy tomato-onion masala.",
+    "ingredients": ["chickpea", "onion", "tomato", "garlic", "ginger", "cumin", "coriander", "turmeric", "garam masala", "cilantro"],
+    "cuisine": "Indian",
+    "instructions": "1. Fry onion, ginger, garlic until golden. 2. Add tomato and dry spices, cook to a paste. 3. Add chickpeas and water, simmer 20 min. 4. Finish with garam masala and cilantro.",
+    "cooking_time": 35,
+    "tags": ["dinner", "vegan", "indian", "high protein", "high fiber"]
+  },
+  {
+    "id": "12",
+    "name": "Carrot Ginger Soup",
+    "description": "Silky blended carrot soup with warming ginger.",
+    "ingredients": ["carrot", "onion", "ginger", "garlic", "vegetable broth", "coconut milk", "olive oil", "salt"],
+    "cuisine": "Fusion",
+    "instructions": "1. Saute onion, garlic and ginger. 2. Add carrot and broth, simmer 20 min. 3. Blend smooth with coconut milk. 4. Season and serve.",
+    "cooking_time": 30,
+    "tags": ["lunch", "soup", "vegan", "gluten free", "under 30 minutes"]
+  },
+  {
+    "id": "13",
+    "name": "Margherita Flatbread",
+    "description": "Quick flatbread pizza with tomato, mozzarella and basil.",
+    "ingredients": ["flatbread", "tomato", "mozzarella", "basil", "garlic", "olive oil", "salt"],
+    "cuisine": "Italian",
+    "instructions": "1. Brush flatbread with garlic oil. 2. Top with sliced tomato and mozzarella. 3. Bake at 230C for 10 min. 4. Finish with fresh basil.",
+    "cooking_time": 15,
+    "tags": ["dinner", "vegetarian", "italian", "quick", "under 30 minutes"]
+  },
+  {
+    "id": "14",
+    "name": "Thai Basil Chicken (Pad Krapow)",
+    "description": "Fiery minced chicken stir-fry with holy basil, served over rice.",
+    "ingredients": ["chicken breast", "garlic", "chili", "basil", "soy sauce", "oyster sauce", "sugar", "rice", "eggs"],
+    "cuisine": "Thai",
+    "instructions": "1. Pound garlic and chili. 2. Stir-fry with minced chicken over high heat. 3. Add sauces and sugar, toss in basil. 4. Serve over rice with a fried egg.",
+    "cooking_time": 20,
+    "tags": ["dinner", "high protein", "spicy", "under 30 minutes"]
+  },
+  {
+    "id": "15",
+    "name": "Eggplant Parmesan",
+    "description": "Layers of breaded eggplant, marinara and melted cheese.",
+    "ingredients": ["eggplant", "tomato", "mozzarella", "parmesan", "eggs", "breadcrumbs", "garlic", "basil", "olive oil"],
+    "cuisine": "Italian",
+    "instructions": "1. Bread eggplant slices in egg and breadcrumbs, bake until crisp. 2. Make a quick garlic tomato sauce. 3. Layer eggplant, sauce and cheeses. 4. Bake 25 min until bubbling.",
+    "cooking_time": 55,
+    "tags": ["dinner", "vegetarian", "italian", "comfort food"]
+  },
+  {
+    "id": "16",
+    "name": "Lemon Garlic Butter Shrimp",
+    "description": "Ten-minute skillet shrimp in lemon-garlic butter.",
+    "ingredients": ["shrimp", "garlic", "butter", "lemon", "parsley", "chili flakes", "olive oil", "salt"],
+    "cuisine": "Mediterranean",
+    "instructions": "1. Pat shrimp dry, season. 2. Sear in olive oil 1 min per side, remove. 3. Melt butter with garlic and chili flakes. 4. Return shrimp, add lemon and parsley.",
+    "cooking_time": 12,
+    "tags": ["dinner", "high protein", "low carb", "quick", "under 30 minutes"]
+  },
+  {
+    "id": "17",
+    "name": "Spinach & Feta Quesadilla",
+    "description": "Crispy quesadilla with garlicky spinach and salty feta.",
+    "ingredients": ["tortilla", "spinach", "feta", "cheddar cheese", "garlic", "butter", "black pepper"],
+    "cuisine": "Fusion",
+    "instructions": "1. Wilt spinach with garlic. 2. Fill tortilla with spinach, feta and cheddar. 3. Cook in butter until golden both sides. 4. Slice into wedges.",
+    "cooking_time": 12,
+    "tags": ["lunch", "vegetarian", "quick", "under 30 minutes"]
+  }
+]

@@ -1,0 +1,10 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+typesense==0.21.0
+python-dotenv==1.0.1
+requests==2.32.3
+anthropic>=0.40
+# Optional vision providers (uncomment if you want to use them):
+# openai==1.59.0
+# google-generativeai==0.8.3
