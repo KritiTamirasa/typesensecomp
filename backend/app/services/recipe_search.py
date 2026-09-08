@@ -11,6 +11,7 @@ from ..models import (
     SearchRecipesResponse,
 )
 from ..typesense_client import RECIPES_COLLECTION, get_client
+from .ranking import compute_overlap, rank_key
 
 _MAX_MISSING_NO_BUY = 2
 
@@ -82,7 +83,7 @@ def search_recipes(req: SearchRecipesRequest) -> SearchRecipesResponse:
     search_params = {
         "q": q,
         "query_by": query_by,
-        "per_page": 250,
+        "per_page": 100,
         "num_typos": 2,
         "facet_by": "cuisine,tags,cooking_time",
         "max_facet_values": 20,
@@ -94,13 +95,11 @@ def search_recipes(req: SearchRecipesRequest) -> SearchRecipesResponse:
 
     raw = client.collections[RECIPES_COLLECTION].documents.search(search_params)
 
-    cards: list[tuple[float, int, float, RecipeCard]] = []
+    cards: list[tuple[tuple, bool, RecipeCard]] = []
     for hit in raw.get("hits", []):
         doc = hit["document"]
         recipe_ings = normalize_list(doc.get("ingredients", []))
-        owned_here = [i for i in recipe_ings if i in owned_set]
-        missing_here = [i for i in recipe_ings if i not in owned_set]
-        match_score = len(owned_here) / len(recipe_ings) if recipe_ings else 0.0
+        overlap = compute_overlap(recipe_ings, owned_set)
         text_match = float(hit.get("text_match", 0))
 
         card = RecipeCard(
@@ -112,28 +111,40 @@ def search_recipes(req: SearchRecipesRequest) -> SearchRecipesResponse:
             instructions=doc.get("instructions", ""),
             cooking_time=int(doc.get("cooking_time", 0)),
             tags=doc.get("tags", []),
-            owned_ingredients=owned_here,
-            missing_ingredients=missing_here,
-            match_score=round(match_score, 3),
-            available_percentage=round(match_score * 100),
+            owned_ingredients=overlap["matched"],
+            missing_ingredients=overlap["missing"],
+            match_score=overlap["match_score"],
+            available_percentage=overlap["match_percentage"],
+            matched_count=overlap["matched_count"],
+            missing_count=overlap["missing_count"],
+            total_ingredients=overlap["total"],
         )
         # "Buyable" = few enough missing items to be worth cooking without a
         # grocery run. Used both to tier the sort and to filter when the user
         # has said they won't buy anything.
-        buyable = len(missing_here) <= _MAX_MISSING_NO_BUY
-        cards.append((1 if buyable else 0, match_score, -len(missing_here), text_match, card))
+        buyable = overlap["missing_count"] <= _MAX_MISSING_NO_BUY
+        key = (
+            1 if buyable else 0,
+            rank_key(
+                overlap["matched_count"],
+                overlap["missing_count"],
+                overlap["match_percentage"],
+                text_match,
+            ),
+        )
+        cards.append((key, buyable, card))
 
     if owned_set:
-        cards.sort(key=lambda t: (t[0], t[1], t[2], t[3]), reverse=True)
+        cards.sort(key=lambda t: t[0], reverse=True)
     # else: keep Typesense relevance order
 
     if not req.willing_to_buy and owned_set:
         # Hide recipes that need a big shop; fall back to the top few if that
         # would empty the list entirely.
-        buyable_cards = [c for c in cards if c[0] == 1]
+        buyable_cards = [c for c in cards if c[1]]
         cards = buyable_cards or cards[:3]
 
-    trimmed = [c[4] for c in cards][: max(1, req.per_page)]
+    trimmed = [c[2] for c in cards][: max(1, req.per_page)]
     return SearchRecipesResponse(
         count=len(trimmed),
         normalized_ingredients=owned,

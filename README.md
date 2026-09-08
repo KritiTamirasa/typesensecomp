@@ -52,14 +52,28 @@ cd backend
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# create collections, import recipes/stores, register synonyms
+# create collections if missing, import/upsert recipes+stores, register synonyms
 python ../scripts/seed_typesense.py
+
+# force a full drop + recreate of the schemas instead (e.g. after a schema change)
+python ../scripts/seed_typesense.py --recreate
 
 # run the API
 uvicorn app.main:app --reload --port 8000
 ```
 
 Check it: <http://localhost:8000/health> and <http://localhost:8000/docs>.
+
+### Run the backend tests
+
+```bash
+cd backend
+pytest -q
+```
+
+Covers ingredient normalization (`app/ingredients.py`) and the ingredient
+overlap/ranking logic (`app/services/ranking.py`) — no running Typesense
+instance required.
 
 ## 4. Frontend
 
@@ -69,7 +83,31 @@ npm install
 npm run dev            # http://localhost:5173
 ```
 
-Open <http://localhost:5173>, drop in any image, and walk the flow.
+Open <http://localhost:5173> and either drop in a fridge photo, or use the
+**"Or enter ingredients manually"** box on the same screen to type a
+comma-separated ingredient list and search directly — useful for testing
+recipe search before the photo/vision flow is wired up, since both paths call
+the same `/search-recipes` API.
+
+### Test search directly (no UI)
+
+```bash
+curl -X POST http://localhost:8000/search-recipes \
+  -H "Content-Type: application/json" \
+  -d '{
+    "ingredients": ["spinach", "egg", "tomato", "paneer"]
+  }'
+```
+
+An empty or missing `ingredients` array returns `400`:
+
+```bash
+curl -i -X POST http://localhost:8000/search-recipes \
+  -H "Content-Type: application/json" \
+  -d '{"ingredients": []}'
+# HTTP/1.1 400 Bad Request
+# {"detail":"ingredients list is required and must not be empty"}
+```
 
 ---
 
@@ -102,15 +140,23 @@ Open <http://localhost:5173>, drop in any image, and walk the flow.
 
 ### Recipe ranking
 
-Typesense retrieves candidates (full-text query when text is given, otherwise the
-whole catalogue). The backend then scores each recipe by ingredient overlap:
+Typesense retrieves a candidate pool (full-text query when text is given,
+capped at 100 hits otherwise — not the whole collection at scale). The
+backend then computes ingredient overlap per candidate
+(`app/services/ranking.py::compute_overlap`) and sorts by
+(`app/services/ranking.py::rank_key`):
 
-```
-match_score = owned_required_ingredients / total_required_ingredients
-```
+1. **fewest missing ingredients** (primary)
+2. **highest match percentage**
+3. **highest matched-ingredient count**
+4. **Typesense text relevance** (final tiebreak)
 
-Cards are sorted by `match_score`, then fewest missing ingredients, then Typesense
-text relevance. Free-text queries like `"high protein dinner"`, `"Italian"`,
+Each recipe card also carries explicit `matched_count`, `missing_count` and
+`total_ingredients` integers (in addition to the `owned_ingredients` /
+`missing_ingredients` arrays) so downstream consumers — like the
+grocery-price feature — don't need to recompute `array.length` themselves.
+
+Free-text queries like `"high protein dinner"`, `"Italian"`,
 `"something with tomatoes"`, `"under 30 minutes"` also work (the last one is
 parsed into a `cooking_time` filter).
 

@@ -21,6 +21,7 @@ export default function App() {
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [provider, setProvider] = useState<string | null>(null);
   const [query, setQuery] = useState("");
+  const [manualDraft, setManualDraft] = useState("");
 
   const [willingToBuy, setWillingToBuy] = useState(false);
 
@@ -80,6 +81,17 @@ export default function App() {
     }
   }
 
+  function useManualIngredients() {
+    const parsed = manualDraft
+      .split(",")
+      .map((s) => s.trim().toLowerCase())
+      .filter(Boolean);
+    if (parsed.length === 0) return;
+    setError(null);
+    setProvider(null);
+    setIngredients(parsed);
+  }
+
   function openRecipe(recipe: RecipeCard) {
     setSelected(recipe);
     setStores(null);
@@ -127,6 +139,38 @@ export default function App() {
             previewUrl={previewUrl}
             loading={analyzing}
           />
+
+          <div className="section-head">
+            <h3>Or enter ingredients manually</h3>
+          </div>
+          <p className="muted small">
+            Useful for testing recipe search before the photo flow is ready —
+            hits the same search API either way.
+          </p>
+          <div className="chips" style={{ marginBottom: "0.5rem" }}>
+            <input
+              className="chip-input"
+              value={manualDraft}
+              placeholder="spinach, paneer, tomato, eggs"
+              onChange={(e) => setManualDraft(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  useManualIngredients();
+                  setManualDraft("");
+                }
+              }}
+            />
+          </div>
+          <button
+            className="link-btn"
+            onClick={() => {
+              useManualIngredients();
+              setManualDraft("");
+            }}
+          >
+            Use these ingredients
+          </button>
 
           {ingredients.length > 0 && (
             <>
