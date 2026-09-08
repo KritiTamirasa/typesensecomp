@@ -19,6 +19,7 @@ from .services.recipe_search import get_recipe, search_recipes
 from .services.store_search import find_stores
 from .typesense_client import RECIPES_COLLECTION, STORES_COLLECTION, get_client
 from .vision import get_vision_provider
+from .vision.mock import MockVisionProvider
 
 logging.basicConfig(level=logging.INFO)
 settings = get_settings()
@@ -66,14 +67,18 @@ async def analyze_fridge(image: UploadFile = File(...)) -> AnalyzeFridgeResponse
         raise HTTPException(400, "empty upload")
 
     provider = get_vision_provider()
+    provider_name = provider.name
     try:
         raw = provider.detect_ingredients(data, mime)
     except Exception as exc:  # noqa: BLE001
-        logging.exception("vision provider failed")
-        raise HTTPException(502, f"vision provider error: {exc}") from exc
+        # Keep the demo alive: if the real vision call fails (bad model name,
+        # rate limit, network), degrade to the mock list but say so honestly.
+        logging.exception("vision provider %r failed; falling back to mock", provider_name)
+        raw = MockVisionProvider().detect_ingredients(data, mime)
+        provider_name = f"mock (fallback: {provider.name} failed)"
 
     return AnalyzeFridgeResponse(
-        provider=provider.name,
+        provider=provider_name,
         ingredients=normalize_list(raw),
         raw_ingredients=raw,
     )
