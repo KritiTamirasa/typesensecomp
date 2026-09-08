@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+backend/.venv/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Env
+.env
+frontend/.env
+
+# Typesense local volume (if bind-mounted)
+typesense-data/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
