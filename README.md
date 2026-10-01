@@ -62,7 +62,8 @@ python ../scripts/seed_typesense.py --recreate
 uvicorn app.main:app --reload --port 8000
 ```
 
-Check it: <http://localhost:8000/health> and <http://localhost:8000/docs>.
+Check it: <http://localhost:8000/api/health> and
+<http://localhost:8000/api/docs>.
 
 ### Run the backend tests
 
@@ -87,12 +88,12 @@ Open <http://localhost:5173> and either drop in a fridge photo, or use the
 **"Or enter ingredients manually"** box on the same screen to type a
 comma-separated ingredient list and search directly — useful for testing
 recipe search before the photo/vision flow is wired up, since both paths call
-the same `/search-recipes` API.
+the same `/api/search-recipes` API.
 
 ### Test search directly (no UI)
 
 ```bash
-curl -X POST http://localhost:8000/search-recipes \
+curl -X POST http://localhost:8000/api/search-recipes \
   -H "Content-Type: application/json" \
   -d '{
     "ingredients": ["spinach", "egg", "tomato", "paneer"]
@@ -102,7 +103,7 @@ curl -X POST http://localhost:8000/search-recipes \
 An empty or missing `ingredients` array returns `400`:
 
 ```bash
-curl -i -X POST http://localhost:8000/search-recipes \
+curl -i -X POST http://localhost:8000/api/search-recipes \
   -H "Content-Type: application/json" \
   -d '{"ingredients": []}'
 # HTTP/1.1 400 Bad Request
@@ -122,7 +123,7 @@ curl -i -X POST http://localhost:8000/search-recipes \
 | `.env` | `FALLBACK_LAT` / `FALLBACK_LNG` | West Lafayette, IN | used by `/find-stores` when the client sends no coords |
 | `.env` | `CURRENCY` | `USD` | currency shown for grocery prices |
 | `.env` | `CORS_ORIGINS` | `localhost:5173` | comma-separated allowed origins |
-| `frontend/.env` | `VITE_API_BASE` | `http://localhost:8000` | backend base URL |
+| `frontend/.env` | `VITE_API_BASE` | `/api` | backend base URL; the default uses Vite's local proxy and Vercel's public rewrite |
 | `frontend/.env` | `VITE_FALLBACK_LAT` / `_LNG` | West Lafayette, IN | used when the browser denies geolocation |
 
 ---
@@ -131,12 +132,12 @@ curl -i -X POST http://localhost:8000/search-recipes \
 
 | Method | Path | Body / params | Notes |
 |---|---|---|---|
-| `GET` | `/health` | — | Typesense connectivity, indexed collections, active vision provider |
-| `POST` | `/analyze-fridge` | `multipart: image` | returns `{provider, ingredients, raw_ingredients}` |
-| `POST` | `/search-recipes` | `{ingredients[], query?, cuisine?, max_cooking_time?, tags[]}` | ranked recipe cards + facets |
-| `GET` | `/recipes/{id}` | — | raw Typesense document |
-| `POST` | `/find-stores` | `{ingredients[], lat?, lng?, radius_km?, require_all?}` | geo-sorted stores + per-store carry/missing |
-| `POST` | `/price-lookup` | `{ingredients[], category?, store_id?}` | cheapest in-stock match per ingredient (+ alternatives) from the `prices` index, `unit_price`-ranked, plus a basket total |
+| `GET` | `/api/health` | — | Typesense connectivity, indexed collections, active vision provider |
+| `POST` | `/api/analyze-fridge` | `multipart: image` | returns `{provider, ingredients, raw_ingredients}` |
+| `POST` | `/api/search-recipes` | `{ingredients[], query?, cuisine?, max_cooking_time?, tags[]}` | ranked recipe cards + facets |
+| `GET` | `/api/recipes/{id}` | — | raw Typesense document |
+| `POST` | `/api/find-stores` | `{ingredients[], lat?, lng?, radius_km?, require_all?}` | geo-sorted stores + per-store carry/missing |
+| `POST` | `/api/price-lookup` | `{ingredients[], category?, store_id?}` | cheapest in-stock match per ingredient (+ alternatives) from the `prices` index, `unit_price`-ranked, plus a basket total |
 
 ### Recipe ranking
 

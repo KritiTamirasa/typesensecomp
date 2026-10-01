@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import logging
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import APIRouter, FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import get_settings
@@ -32,7 +32,14 @@ from .vision.mock import MockVisionProvider
 logging.basicConfig(level=logging.INFO)
 settings = get_settings()
 
-app = FastAPI(title="Fridge → Recipes → Groceries", version="0.1.0")
+app = FastAPI(
+    title="Fridge → Recipes → Groceries",
+    version="0.1.0",
+    docs_url="/api/docs",
+    openapi_url="/api/openapi.json",
+    redoc_url="/api/redoc",
+)
+api = APIRouter(prefix="/api")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
@@ -64,7 +71,7 @@ def _sniff_mime(data: bytes, declared: str) -> str | None:
     return None
 
 
-@app.get("/health")
+@api.get("/health")
 def health() -> dict:
     ts_ok = False
     collections: list[str] = []
@@ -86,7 +93,7 @@ def health() -> dict:
     }
 
 
-@app.post("/analyze-fridge", response_model=AnalyzeFridgeResponse)
+@api.post("/analyze-fridge", response_model=AnalyzeFridgeResponse)
 async def analyze_fridge(image: UploadFile = File(...)) -> AnalyzeFridgeResponse:
     declared = image.content_type or ""
 
@@ -120,7 +127,7 @@ async def analyze_fridge(image: UploadFile = File(...)) -> AnalyzeFridgeResponse
     )
 
 
-@app.post("/search-recipes", response_model=SearchRecipesResponse)
+@api.post("/search-recipes", response_model=SearchRecipesResponse)
 def search_recipes_endpoint(req: SearchRecipesRequest) -> SearchRecipesResponse:
     if not [i for i in req.ingredients if i and i.strip()]:
         raise HTTPException(400, "ingredients list is required and must not be empty")
@@ -131,7 +138,7 @@ def search_recipes_endpoint(req: SearchRecipesRequest) -> SearchRecipesResponse:
         raise HTTPException(502, f"recipe search error: {exc}") from exc
 
 
-@app.get("/recipes/{recipe_id}")
+@api.get("/recipes/{recipe_id}")
 def get_recipe_endpoint(recipe_id: str) -> dict:
     doc = get_recipe(recipe_id)
     if not doc:
@@ -139,7 +146,7 @@ def get_recipe_endpoint(recipe_id: str) -> dict:
     return doc
 
 
-@app.post("/price-lookup", response_model=PriceLookupResponse)
+@api.post("/price-lookup", response_model=PriceLookupResponse)
 def price_lookup_endpoint(req: PriceLookupRequest) -> PriceLookupResponse:
     if not req.ingredients:
         raise HTTPException(400, "ingredients list is required")
@@ -150,7 +157,7 @@ def price_lookup_endpoint(req: PriceLookupRequest) -> PriceLookupResponse:
         raise HTTPException(502, f"price lookup error: {exc}") from exc
 
 
-@app.post("/find-stores", response_model=FindStoresResponse)
+@api.post("/find-stores", response_model=FindStoresResponse)
 def find_stores_endpoint(req: FindStoresRequest) -> FindStoresResponse:
     if not req.ingredients:
         raise HTTPException(400, "ingredients list is required")
@@ -159,3 +166,6 @@ def find_stores_endpoint(req: FindStoresRequest) -> FindStoresResponse:
     except Exception as exc:  # noqa: BLE001
         logging.exception("store search failed")
         raise HTTPException(502, f"store search error: {exc}") from exc
+
+
+app.include_router(api)

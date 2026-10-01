@@ -4,14 +4,14 @@
     "name": "Pay Less Super Market",
     "location": [40.4287, -86.9109],
     "address": "720 Northwestern Ave, West Lafayette, IN 47906",
-    "inventory": ["tomato", "onion", "garlic", "spinach", "basil", "bell pepper", "mozzarella", "parmesan", "spaghetti", "olive oil", "lemon", "eggs"]
+    "inventory": ["tomato", "onion", "red onion", "garlic", "spinach", "lettuce", "basil", "bell pepper", "mozzarella", "parmesan", "spaghetti", "olive oil", "lemon", "eggs", "bread", "dijon mustard"]
   },
   {
     "id": "s2",
     "name": "Kroger West Lafayette",
     "location": [40.4517, -86.9250],
     "address": "1290 Sagamore Pkwy W, West Lafayette, IN 47906",
-    "inventory": ["paneer", "spinach", "cream", "garam masala", "ginger", "cilantro", "chickpea", "turmeric", "coriander", "clarified butter", "tomato", "onion"]
+    "inventory": ["paneer", "spinach", "cream", "garam masala", "ginger", "cilantro", "chickpea", "turmeric", "coriander", "clarified butter", "tomato", "onion", "red onion", "pita bread", "hummus"]
   },
   {
     "id": "s3",
@@ -32,21 +32,21 @@
     "name": "Meijer Lafayette",
     "location": [40.4623, -86.8412],
     "address": "2636 Maple Point Dr, Lafayette, IN 47905",
-    "inventory": ["tomato", "onion", "garlic", "ginger", "cumin", "coriander", "turmeric", "chickpea", "cilantro", "paprika", "flour", "honey"]
+    "inventory": ["tomato", "onion", "red onion", "garlic", "ginger", "cumin", "coriander", "turmeric", "chickpea", "cilantro", "paprika", "flour", "honey", "dijon mustard"]
   },
   {
     "id": "s6",
     "name": "Walmart Supercenter",
     "location": [40.4470, -86.9186],
     "address": "2801 Northwestern Ave, West Lafayette, IN 47906",
-    "inventory": ["chicken breast", "eggs", "milk", "butter", "cheddar cheese", "greek yogurt", "spinach", "romaine lettuce", "croutons", "tortilla", "flatbread", "baking powder", "vanilla"]
+    "inventory": ["chicken breast", "eggs", "milk", "butter", "cheddar cheese", "greek yogurt", "sour cream", "spinach", "lettuce", "romaine lettuce", "croutons", "tortilla", "flatbread", "bread", "baking powder", "vanilla", "dijon mustard", "red onion", "banana"]
   },
   {
     "id": "s7",
     "name": "Nature's Pantry Organic Market",
     "location": [40.4243, -86.9083],
     "address": "135 S Chauncey Ave, West Lafayette, IN 47906",
-    "inventory": ["basil", "cannellini beans", "celery", "carrot", "spinach", "pasta", "vegetable broth", "olive oil", "balsamic vinegar", "mozzarella"]
+    "inventory": ["basil", "parsley", "cannellini beans", "celery", "carrot", "cucumber", "spinach", "lettuce", "avocado", "pasta", "vegetable broth", "olive oil", "balsamic vinegar", "mozzarella", "bread", "pita bread", "hummus"]
   },
   {
     "id": "s8",

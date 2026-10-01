@@ -168,5 +168,95 @@
     "instructions": "1. Wilt spinach with garlic. 2. Fill tortilla with spinach, feta and cheddar. 3. Cook in butter until golden both sides. 4. Slice into wedges.",
     "cooking_time": 12,
     "tags": ["lunch", "vegetarian", "quick", "under 30 minutes"]
+  },
+  {
+    "id": "18",
+    "name": "Creamy Avocado Egg Salad Cups",
+    "description": "Hard-boiled eggs folded with mashed avocado and sour cream, piled into crisp lettuce cups.",
+    "ingredients": ["eggs", "avocado", "sour cream", "scallion", "lemon", "parsley", "lettuce"],
+    "cuisine": "American",
+    "instructions": "1. Boil eggs 9 minutes, cool, peel and chop. 2. Mash avocado with sour cream and a squeeze of lemon. 3. Fold in eggs, sliced scallion and chopped parsley; season. 4. Spoon into lettuce leaves.",
+    "cooking_time": 15,
+    "tags": ["lunch", "vegetarian", "high protein", "low carb", "under 30 minutes"]
+  },
+  {
+    "id": "19",
+    "name": "Everything Chopped Salad with Lemon-Sour Cream Dressing",
+    "description": "A crunchy chopped salad of lettuce, cucumber, tomato and avocado in a tangy creamy dressing.",
+    "ingredients": ["lettuce", "cucumber", "tomato", "avocado", "scallion", "parsley", "sour cream", "lemon"],
+    "cuisine": "American",
+    "instructions": "1. Finely chop lettuce, cucumber, tomato and avocado. 2. Whisk sour cream with lemon juice and chopped parsley; season. 3. Toss everything with sliced scallion. 4. Serve cold.",
+    "cooking_time": 10,
+    "tags": ["lunch", "salad", "vegetarian", "gluten free", "no cook"]
+  },
+  {
+    "id": "20",
+    "name": "Hummus & Cucumber Snack Plate",
+    "description": "Five-minute mezze plate: hummus with crisp cucumber, tomato and lemony herbs.",
+    "ingredients": ["hummus", "cucumber", "tomato", "lettuce", "lemon", "parsley"],
+    "cuisine": "Mediterranean",
+    "instructions": "1. Spread hummus across a plate and swirl. 2. Pile on sliced cucumber, tomato wedges and torn lettuce. 3. Squeeze over lemon and scatter parsley. 4. Serve.",
+    "cooking_time": 5,
+    "tags": ["snack", "vegan", "no cook", "quick", "under 30 minutes"]
+  },
+  {
+    "id": "21",
+    "name": "Cucumber Tomato Scallion Salad",
+    "description": "A bright no-cook side salad with a simple lemon dressing.",
+    "ingredients": ["cucumber", "tomato", "scallion", "parsley", "lemon"],
+    "cuisine": "Mediterranean",
+    "instructions": "1. Slice cucumber and tomato; thinly slice scallion. 2. Toss with chopped parsley. 3. Dress with lemon juice, olive oil and salt. 4. Rest 10 minutes before serving.",
+    "cooking_time": 10,
+    "tags": ["side", "salad", "vegan", "no cook"]
+  },
+  {
+    "id": "22",
+    "name": "Loaded Deviled Eggs",
+    "description": "Deviled eggs with tangy sour cream, crunchy pickle and scallion.",
+    "ingredients": ["eggs", "sour cream", "pickle", "scallion", "parsley", "dijon mustard"],
+    "cuisine": "American",
+    "instructions": "1. Hard-boil eggs, halve, scoop the yolks. 2. Mash yolks with sour cream, minced pickle and mustard. 3. Pipe back into the whites. 4. Top with scallion and parsley.",
+    "cooking_time": 20,
+    "tags": ["appetizer", "vegetarian", "high protein", "party", "under 30 minutes"]
+  },
+  {
+    "id": "23",
+    "name": "Avocado Toast with a Jammy Egg",
+    "description": "Smashed avocado on toast with a soft-boiled egg, tomato and scallion.",
+    "ingredients": ["bread", "avocado", "eggs", "lemon", "scallion", "tomato"],
+    "cuisine": "American",
+    "instructions": "1. Soft-boil eggs 6.5 minutes. 2. Toast bread; smash avocado on top with lemon and salt. 3. Add sliced tomato and the halved egg. 4. Finish with scallion.",
+    "cooking_time": 12,
+    "tags": ["breakfast", "vegetarian", "quick", "under 30 minutes"]
+  },
+  {
+    "id": "24",
+    "name": "Sunshine Citrus Banana Smoothie",
+    "description": "A three-fruit breakfast smoothie with yogurt and honey.",
+    "ingredients": ["banana", "orange", "lemon", "greek yogurt", "honey"],
+    "cuisine": "American",
+    "instructions": "1. Peel and segment the orange; peel the banana. 2. Blend with a squeeze of lemon, the yogurt and honey. 3. Add a splash of water or ice. 4. Blend until smooth.",
+    "cooking_time": 5,
+    "tags": ["breakfast", "smoothie", "vegetarian", "no cook", "quick"]
+  },
+  {
+    "id": "25",
+    "name": "Garlic Broccoli & Egg Stir-Fry",
+    "description": "Fast weeknight stir-fry of broccoli and scrambled egg in a garlic-soy glaze.",
+    "ingredients": ["broccoli", "eggs", "scallion", "garlic", "soy sauce", "sesame oil"],
+    "cuisine": "Chinese",
+    "instructions": "1. Blanch broccoli 2 minutes. 2. Scramble eggs in sesame oil; set aside. 3. Stir-fry garlic and broccoli, add soy sauce. 4. Return eggs and toss with scallion.",
+    "cooking_time": 15,
+    "tags": ["dinner", "vegetarian", "high protein", "under 30 minutes"]
+  },
+  {
+    "id": "26",
+    "name": "Greek-Style Chicken Gyro Bowl",
+    "description": "A deconstructed gyro bowl with cucumber, tomato, lettuce and a yogurt-lemon sauce.",
+    "ingredients": ["chicken breast", "cucumber", "tomato", "lettuce", "greek yogurt", "lemon", "garlic", "red onion", "pita bread"],
+    "cuisine": "Greek",
+    "instructions": "1. Marinate sliced chicken in yogurt, lemon and garlic; sear until cooked. 2. Chop cucumber, tomato, lettuce and red onion. 3. Warm the pita. 4. Build bowls with chicken, salad and extra yogurt sauce.",
+    "cooking_time": 30,
+    "tags": ["dinner", "high protein", "greek", "meal prep"]
   }
 ]

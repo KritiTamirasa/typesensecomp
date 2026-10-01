@@ -5,7 +5,9 @@ import type {
   SearchResponse,
 } from "./types";
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
+// Production and local development both use the public, same-origin API path.
+// Vite proxies it to FastAPI locally; Vercel routes it to the backend service.
+const API_BASE = (import.meta.env.VITE_API_BASE ?? "/api").replace(/\/$/, "");
 
 async function handle<T>(res: Response): Promise<T> {
   if (!res.ok) {
